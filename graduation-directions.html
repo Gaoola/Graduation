@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Directions — Kevin's Hooding Ceremony</title>
+  <style>
+    :root {
+      --blue: #003DA5;
+      --blue-dark: #002a73;
+      --blue-light: #1a55c0;
+      --gold: #FFB81C;
+      --gold-pale: #fff4d6;
+      --white: #ffffff;
+      --warm: #faf8f4;
+      --warm2: #f3efe8;
+      --text: #1e1a14;
+      --muted: #6b6256;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: var(--warm); color: var(--text); }
+
+    /* NAV */
+    nav { background: var(--blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 16px rgba(0,0,0,0.18); }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; flex-wrap: wrap; }
+    nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Arial', sans-serif; font-size: 0.88rem; letter-spacing: 0.04em; font-weight: 600; padding: 0.45rem 1.1rem; border-radius: 999px; transition: all 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.active { background: var(--gold); color: var(--blue-dark); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(150deg, var(--blue-dark) 0%, var(--blue) 55%, #1a4fbe 100%);
+      color: var(--white); text-align: center;
+      padding: 4rem 2rem 5.5rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% -10%, rgba(255,184,28,0.2) 0%, transparent 60%); }
+    .page-header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 55px; background: var(--warm); clip-path: ellipse(55% 100% at 50% 100%); }
+    .page-header-content { position: relative; z-index: 1; }
+    .page-header h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header h1 span { color: var(--gold); }
+    .page-header p { font-size: 1rem; opacity: 0.78; font-style: italic; }
+
+    /* SECTION */
+    .section-wrap { padding: 4rem 2rem; }
+    .section-wrap.alt { background: var(--warm2); }
+    .inner { max-width: 820px; margin: 0 auto; }
+    .section-top { text-align: center; margin-bottom: 2.5rem; }
+    .section-tag { display: inline-block; background: var(--gold-pale); color: #7a5500; font-family: 'Arial', sans-serif; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 0.75rem; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); color: var(--blue); margin-bottom: 0.4rem; }
+    .section-sub { font-size: 1rem; color: var(--muted); font-style: italic; }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 1rem; }
+    .step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .section-wrap.alt .step { background: var(--warm); }
+    .step:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.09); }
+    .step-num {
+      flex-shrink: 0; width: 2.4rem; height: 2.4rem;
+      background: var(--gold); color: var(--blue-dark);
+      font-family: 'Arial', sans-serif; font-size: 1rem; font-weight: 700;
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-body h3 { font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
+    .step-body p { font-size: 0.93rem; color: #4a4238; line-height: 1.7; }
+    .step-body a { color: var(--blue-light); font-weight: 600; }
+
+    /* MAP BUTTONS */
+    .map-links { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-family: 'Arial', sans-serif; font-size: 0.78rem; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+      border: 1.5px solid;
+    }
+    .map-btn-google { background: var(--white); border-color: #dadada; color: #444; }
+    .map-btn-google:hover { border-color: #4285F4; color: #4285F4; background: #f0f4ff; }
+    .map-btn-apple { background: var(--white); border-color: #dadada; color: #444; }
+    .map-btn-apple:hover { border-color: #333; color: #111; background: #f5f5f5; }
+
+    /* PARKING PAYMENT */
+    .parking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .parking-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .parking-card .p-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .parking-card h4 { font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 0.5rem; }
+    .parking-card p { font-size: 0.88rem; color: #4a4238; line-height: 1.75; }
+    .parking-card .accept { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .accept-tag { background: var(--gold-pale); color: #7a5500; font-family: 'Arial', sans-serif; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 999px; }
+
+    /* TIP BOX */
+    .tip-box {
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      color: var(--white); border-radius: 20px;
+      padding: 1.5rem 1.75rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .tip-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .tip-box p { font-size: 0.93rem; line-height: 1.7; }
+    .tip-box strong { color: var(--gold); }
+
+    /* FOOTER */
+    footer { background: var(--blue-dark); color: rgba(255,255,255,0.65); text-align: center; padding: 3rem 2rem; font-family: 'Arial', sans-serif; font-size: 0.85rem; }
+    .footer-name { font-size: 1.05rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+    .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-link-btn { display: inline-block; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 0.4rem 1.1rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; transition: all 0.2s; }
+    .footer-link-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 600px) {
+      nav ul { gap: 0.3rem; }
+      .page-header { padding: 3rem 1.25rem 4.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Ceremony</a></li>
+      <li><a href="graduation-directions.html" class="active">Directions</a></li>
+      <li><a href="graduation-photos.html">Photos &amp; Live Stream</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1>Directions &amp; <span>Guest Guide</span></h1>
+      <p>Student Recreation Center North · UC Riverside · June 6, 2026</p>
+    </div>
+  </header>
+
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="section-top">
+        <div class="section-tag">Getting There</div>
+        <h2>Step-by-Step for Guests</h2>
+        <p class="section-sub">Follow these steps for a smooth, stress-free morning</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Plan Your Route</h3>
+            <p>The ceremony is at the <strong>Student Recreation Center North, Main Gymnasium</strong> — UC Riverside, 900 University Ave, Riverside, CA 92521. Allow extra travel time on ceremony day.</p>
+            <div class="map-links">
+              <a class="map-btn map-btn-google" href="https://maps.app.goo.gl/MbmHhtTB5niL79na7" target="_blank" rel="noopener">Google Maps</a>
+              <a class="map-btn map-btn-apple" href="https://maps.apple/p/TftZ1QYynwTFum" target="_blank" rel="noopener"> Apple Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Parking</h3>
+            <p>Parking is available in any UCR visitor lot with a paid permit. <strong>Lot 24</strong> is the closest to the venue — but it fills up fast, so arrive early. <strong>Lot 26</strong> is a good backup option nearby. Visit <a href="https://transportation.ucr.edu/visitor-parking" target="_blank" rel="noopener">transportation.ucr.edu/visitor-parking</a> to plan ahead.</p>
+            <div class="map-links">
+              <a class="map-btn map-btn-google" href="https://maps.app.goo.gl/kWVnTzYvR29Ak3RFA" target="_blank" rel="noopener">Lot 24 on Google Maps</a>
+              <a class="map-btn map-btn-apple" href="https://maps.apple/p/iqJmtFuPXh-Z5F" target="_blank" rel="noopener"> Lot 24 on Apple Maps</a>
+            </div>
+            <div class="map-links" style="margin-top: 0.4rem;">
+              <a class="map-btn map-btn-google" href="https://maps.app.goo.gl/WZrWTemGPPx9w8jZA" target="_blank" rel="noopener">Lot 26 on Google Maps</a>
+              <a class="map-btn map-btn-apple" href="https://maps.apple/p/1VZLP7~oHKsGuL" target="_blank" rel="noopener"> Lot 26 on Apple Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Arrive Early — Security Checkpoint</h3>
+            <p>Security gates open at <strong>7:30 AM</strong>. All guests pass through metal detectors and bag checks. Give yourself plenty of time — lines may be long before the 8:00 AM door opening. Avoid bringing large bags if possible.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Have Your Ticket Ready</h3>
+            <p>Every guest needs a ticket — have it on your phone or printed before you reach the checkpoint. Children under 2 don't need a ticket but must stay on a lap throughout the ceremony.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>Find Your Seat</h3>
+            <p>Venue doors open at <strong>8:00 AM</strong>. Follow the signage inside — ushers will guide you to seating. Graduates enter in a separate procession at 9:00 AM.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h3>After the Ceremony</h3>
+            <p>The ceremony wraps up by noon — a perfect time for group photos! Don't forget to share your pictures in the <a href="graduation-photos.html">shared photo album</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-tag" style="margin-top: 2.5rem; display: block;">Parking Payment Options</div>
+      <div class="parking-grid">
+        <div class="parking-card">
+          <div class="p-icon">📱</div>
+          <h4>ParkMobile</h4>
+          <p>Pay for parking right from your phone. Choose how long you want to park and pay for only that time. Available in short-term and daily lots across campus.</p>
+          <div style="margin-top: 0.75rem;">
+            <a href="https://apps.apple.com/us/app/parkmobile-find-parking/id365399774" target="_blank" rel="noopener" class="accept-tag" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.85rem; font-size: 0.78rem;">🍎 Download on App Store</a>
+          </div>
+        </div>
+        <div class="parking-card">
+          <div class="p-icon">🏧</div>
+          <h4>Self-Service Pay Stations</h4>
+          <p>Pay stations are available in various lots for short-term and daily parking. Short-term permits are only valid in the lot purchased, in stalls marked "ST." Daily permits are lot-specific.</p>
+          <div class="accept">
+            <span class="accept-tag">Visa</span>
+            <span class="accept-tag">Mastercard</span>
+            <span class="accept-tag">Discover</span>
+            <span class="accept-tag">Apple Pay</span>
+            <span class="accept-tag">Google Wallet</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <p><strong>Pro tip:</strong> Wear comfortable shoes — UCR's campus is spread out. Bring a light jacket as the gymnasium can be cool. And make sure your phone is fully charged before you head out!</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-name">UC Riverside · Department of Mathematics</div>
+    <p>Dr. Chaoyang Gao &nbsp;·&nbsp; PhD Hooding Ceremony &nbsp;·&nbsp; June 6, 2026</p>
+    <div class="footer-links">
+      <a class="footer-link-btn" href="index.html">Ceremony</a>
+      <a class="footer-link-btn" href="graduation-photos.html">Photos &amp; Live Stream</a>
+    </div>
+  </footer>
+
+</body>
+</html>

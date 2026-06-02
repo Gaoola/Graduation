@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Chaoyang Gao — PhD Hooding Ceremony</title>
+  <style>
+    :root {
+      --blue: #003DA5;
+      --blue-dark: #002a73;
+      --blue-light: #1a55c0;
+      --gold: #FFB81C;
+      --gold-pale: #fff4d6;
+      --gold-light: #ffe8a0;
+      --white: #ffffff;
+      --warm: #faf8f4;
+      --warm2: #f3efe8;
+      --text: #1e1a14;
+      --muted: #6b6256;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: var(--warm); color: var(--text); }
+
+    /* NAV */
+    nav {
+      background: var(--blue);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.18);
+    }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; flex-wrap: wrap; }
+    nav a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.active { background: var(--gold); color: var(--blue-dark); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(150deg, var(--blue-dark) 0%, var(--blue) 55%, #1a4fbe 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5.5rem 2rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% -10%, rgba(255,184,28,0.22) 0%, transparent 60%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0; height: 60px;
+      background: var(--warm);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
+      color: var(--white);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 700; line-height: 1.18; margin-bottom: 0.75rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: 1.15rem; opacity: 0.82; font-style: italic; margin-bottom: 2.5rem; }
+    .hero-pills {
+      display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .hero-pill {
+      background: rgba(255,255,255,0.13);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      padding: 0.5rem 1.25rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-pill .pill-icon { font-size: 1rem; }
+    .hero-date {
+      font-family: 'Arial', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+    .hero-date::before,
+    .hero-date::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: rgba(255, 184, 28, 0.45);
+      display: block;
+    }
+
+    /* SECTION */
+    .section-wrap { padding: 4.5rem 2rem; }
+    .section-wrap.alt { background: var(--warm2); }
+    .inner { max-width: 920px; margin: 0 auto; }
+    .section-top { text-align: center; margin-bottom: 2.5rem; }
+    .section-tag {
+      display: inline-block;
+      background: var(--gold-pale);
+      color: #7a5500;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); color: var(--blue); margin-bottom: 0.4rem; line-height: 1.25; }
+    .section-sub { font-size: 1rem; color: var(--muted); font-style: italic; }
+
+    /* INFO CARDS */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .info-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .section-wrap.alt .info-card { background: var(--warm); }
+    .info-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .info-card h3 {
+      font-family: 'Arial', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .info-card p { font-size: 0.98rem; font-weight: 600; color: var(--blue); line-height: 1.55; }
+    .info-card p span { font-weight: 400; font-size: 0.88rem; color: var(--muted); }
+
+    /* TIMELINE */
+    .timeline-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      margin-bottom: 1rem;
+    }
+    .timeline-card h3 {
+      font-family: 'Arial', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
+    }
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline-item { display: flex; gap: 1.25rem; align-items: flex-start; position: relative; padding-bottom: 1.4rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .timeline-dot {
+      width: 1rem; height: 1rem;
+      background: var(--gold);
+      border-radius: 999px;
+      border: 3px solid var(--white);
+      box-shadow: 0 0 0 2px var(--gold);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .timeline-line {
+      width: 2px; flex: 1; background: #e8e3db; margin-top: 2px;
+    }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-body { padding-top: 0; }
+    .timeline-time {
+      font-family: 'Arial', sans-serif; font-size: 0.8rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.04em; margin-bottom: 0.15rem;
+      background: var(--gold-pale); display: inline-block;
+      padding: 0.15rem 0.65rem; border-radius: 999px;
+    }
+    .timeline-label { font-size: 0.98rem; font-weight: 600; color: var(--blue); line-height: 1.4; }
+    .timeline-note { font-size: 0.85rem; color: var(--muted); margin-top: 0.15rem; font-style: italic; }
+
+    /* HOODING CARD */
+    .hooding-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem 2rem 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      margin-top: 1rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .hooding-icon { font-size: 2rem; flex-shrink: 0; margin-top: 0.2rem; }
+    .hooding-body h3 {
+      font-size: 1.1rem; font-weight: 700; color: var(--blue);
+      margin-bottom: 1rem;
+    }
+    .hooding-body p {
+      font-size: 0.95rem; color: #4a4238; line-height: 1.8;
+      margin-bottom: 0.85rem;
+    }
+    .hooding-body p:last-of-type { margin-bottom: 0; }
+    .hooding-closing {
+      font-style: italic; color: var(--blue) !important;
+      font-weight: 600; margin-top: 0.5rem !important;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 3rem 2rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+    }
+    .footer-name { font-size: 1.05rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-link-btn {
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: all 0.2s;
+    }
+    .footer-link-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 600px) {
+      nav ul { gap: 0.3rem; }
+      .hero { padding: 4rem 1.25rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="graduation.html" class="active">Ceremony</a></li>
+      <li><a href="graduation-directions.html">Directions</a></li>
+      <li><a href="graduation-photos.html">Photos &amp; Live Stream</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">UC Riverside · PhD Hooding Ceremony</div>
+      <h1>Congratulations,<br/><span>Dr. Chaoyang Gao!</span></h1>
+      <p class="hero-sub">Doctor of Philosophy in Mathematics &mdash; Class of 2026</p>
+      <p class="hero-date">Saturday, June 6, 2026</p>
+    </div>
+  </header>
+
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="section-top">
+        <div class="section-tag">Ceremony Details</div>
+        <h2>Hooding Ceremony</h2>
+        <p class="section-sub">Everything you need to know for the big day</p>
+      </div>
+      <div class="info-grid" style="margin-bottom: 1rem;">
+        <div class="info-card">
+          <div class="card-icon">🎟️</div>
+          <h3>Tickets Required</h3>
+          <p>All guests need a ticket to enter. <span>Children under 2 are free but must stay on a lap for the whole ceremony.</span></p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">🔒</div>
+          <h3>Enhanced Security</h3>
+          <p>Metal detectors and bag checks at all entrances. <span>Plan extra time — lines may be long before doors open.</span></p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <h3>⏰ &nbsp;Schedule — Saturday, June 6, 2026</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body">
+              <div class="timeline-time">7:30 AM</div>
+              <div class="timeline-label">Security gates open</div>
+              <div class="timeline-note">Metal detectors &amp; bag checks at all entrances — plan ahead</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body">
+              <div class="timeline-time">8:00 AM</div>
+              <div class="timeline-label">Venue doors open</div>
+              <div class="timeline-note">Find your seat — all guests must have a ticket</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body">
+              <div class="timeline-time">9:00 AM</div>
+              <div class="timeline-label">Ceremony begins 🎓</div>
+              <div class="timeline-note">Graduate procession &amp; hooding</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body">
+              <div class="timeline-time">12:00 PM</div>
+              <div class="timeline-label">Ceremony ends</div>
+              <div class="timeline-note">Time for photos &amp; celebration!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hooding-card">
+        <div class="hooding-icon">🎓</div>
+        <div class="hooding-body">
+          <h3>What is a Hooding Ceremony?</h3>
+          <p>
+            The hooding ceremony is one of the most meaningful traditions in graduate education — and one of the most personal moments of Kevin's entire academic journey.
+          </p>
+          <p>
+            During the ceremony, Kevin will walk across the stage where his faculty advisor, <a href="https://sites.google.com/view/brian-collier/home" target="_blank" rel="noopener" style="color: var(--blue-light); font-weight: 700;"><strong>Dr. Brian Collier</strong></a>, will drape the hood over his shoulders — a personal, one-on-one moment that sets the hooding apart from any other graduation tradition. When Kevin's name is called, it marks his official entry into the global community of scholars.
+          </p>
+          <p>
+            The doctoral hood traces its origins to medieval European universities, where robes and hoods were everyday academic dress. Over centuries, the hood evolved into a symbol of scholarly achievement — its colors, lining, and velvet trim now encoding the graduate's university and field of study.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-name">UC Riverside · Department of Mathematics</div>
+    <p>Dr. Chaoyang Gao &nbsp;·&nbsp; PhD Hooding Ceremony &nbsp;·&nbsp; June 6, 2026</p>
+    <div class="footer-links">
+      <a class="footer-link-btn" href="graduation-directions.html">Directions</a>
+      <a class="footer-link-btn" href="graduation-photos.html">Photos &amp; Live Stream</a>
+    </div>
+  </footer>
+
+</body>
+</html>

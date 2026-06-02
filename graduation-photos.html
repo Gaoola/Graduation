@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photos & Live Stream — Dr. Chaoyang Gao</title>
+  <style>
+    :root {
+      --blue: #003DA5;
+      --blue-dark: #002a73;
+      --blue-light: #1a55c0;
+      --gold: #FFB81C;
+      --gold-pale: #fff4d6;
+      --gold-light: #ffe8a0;
+      --white: #ffffff;
+      --warm: #faf8f4;
+      --warm2: #f3efe8;
+      --text: #1e1a14;
+      --muted: #6b6256;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: var(--warm); color: var(--text); }
+
+    /* NAV */
+    nav { background: var(--blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 16px rgba(0,0,0,0.18); }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; flex-wrap: wrap; }
+    nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Arial', sans-serif; font-size: 0.88rem; letter-spacing: 0.04em; font-weight: 600; padding: 0.45rem 1.1rem; border-radius: 999px; transition: all 0.2s; }
+    nav a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+    nav a.active { background: var(--gold); color: var(--blue-dark); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(150deg, var(--blue-dark) 0%, var(--blue) 55%, #1a4fbe 100%);
+      color: var(--white); text-align: center;
+      padding: 4rem 2rem 5.5rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% -10%, rgba(255,184,28,0.2) 0%, transparent 60%); }
+    .page-header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 55px; background: var(--warm); clip-path: ellipse(55% 100% at 50% 100%); }
+    .page-header-content { position: relative; z-index: 1; }
+    .page-header h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header h1 span { color: var(--gold); }
+    .page-header p { font-size: 1rem; opacity: 0.78; font-style: italic; }
+
+    /* SHARED */
+    .section-wrap { padding: 4rem 2rem; }
+    .section-wrap.alt { background: var(--warm2); }
+    .inner { max-width: 720px; margin: 0 auto; }
+    .section-tag { display: inline-block; background: var(--gold-pale); color: #7a5500; font-family: 'Arial', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 0.85rem; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2rem); color: var(--blue); margin-bottom: 0.5rem; }
+
+    /* PHOTOS */
+    .photos-block { text-align: center; }
+    .photos-block h2 { margin-bottom: 0.6rem; }
+    .photos-block p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+    .btn-album {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--blue); color: var(--white);
+      font-family: 'Arial', sans-serif; font-size: 1rem; font-weight: 700;
+      padding: 0.9rem 2.5rem; border-radius: 999px;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 4px 18px rgba(0, 61, 165, 0.28);
+    }
+    .btn-album:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,61,165,0.35); }
+
+    /* DIVIDER */
+    .section-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #ddd8cf, transparent);
+      margin: 0;
+    }
+
+    /* LIVE STREAM */
+    .stream-block { }
+    .stream-block h2 { margin-bottom: 0.6rem; }
+    .stream-block .stream-sub { font-size: 0.95rem; color: var(--muted); font-style: italic; margin-bottom: 2rem; }
+
+    .stream-card {
+      background: var(--blue);
+      border-radius: 24px;
+      padding: 2rem 2.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+      box-shadow: 0 6px 28px rgba(0, 61, 165, 0.22);
+    }
+    .stream-left { display: flex; align-items: center; gap: 1.25rem; }
+    .stream-play {
+      width: 3rem; height: 3rem;
+      background: var(--gold); color: var(--blue-dark);
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .stream-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+    .stream-meta { font-family: 'Arial', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .btn-stream {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold); color: var(--blue-dark);
+      font-family: 'Arial', sans-serif; font-size: 0.9rem; font-weight: 700;
+      padding: 0.7rem 1.6rem; border-radius: 999px;
+      text-decoration: none; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-stream:hover { background: #e6a800; transform: translateY(-2px); }
+
+    .stream-note {
+      margin-top: 1.25rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer { background: var(--blue-dark); color: rgba(255,255,255,0.65); text-align: center; padding: 3rem 2rem; font-family: 'Arial', sans-serif; font-size: 0.85rem; }
+    .footer-name { font-size: 1.05rem; font-weight: 700; color: var(--gold); margin-bottom: 0.4rem; }
+    .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-link-btn { display: inline-block; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 0.4rem 1.1rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; transition: all 0.2s; }
+    .footer-link-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 600px) {
+      nav ul { gap: 0.3rem; }
+      .page-header { padding: 3rem 1.25rem 4.5rem; }
+      .stream-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Ceremony</a></li>
+      <li><a href="graduation-directions.html">Directions</a></li>
+      <li><a href="graduation-photos.html" class="active">Photos &amp; Live Stream</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1>Photos &amp; <span>Live Stream</span></h1>
+      <p>Browse memories and watch the ceremony live</p>
+    </div>
+  </header>
+
+  <!-- PHOTOS -->
+  <div class="section-wrap">
+    <div class="inner">
+      <div class="section-tag">Shared Memories</div>
+      <div class="photos-block">
+        <h2>Photo Album</h2>
+        <p>Browse photos from the ceremony — all photos shared by family and friends.</p>
+        <a class="btn-album" href="https://www.icloud.com/sharedalbum/#B1wJRveFpGfJrEN" target="_blank" rel="noopener">
+          🖼️ &nbsp;Open Shared Album
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- LIVE STREAM -->
+  <div class="section-wrap alt">
+    <div class="inner">
+      <div class="section-tag">Watch Live</div>
+      <div class="stream-block">
+        <h2>Live Stream</h2>
+        <p class="stream-sub">Can't make it in person? You're still invited — watch from anywhere.</p>
+        <div class="stream-card">
+          <div class="stream-left">
+            <div class="stream-play">▶</div>
+            <div>
+              <div class="stream-title">Graduate Division Hooding Ceremony</div>
+              <div class="stream-meta">
+                Saturday, June 6, 2026<br/>
+                Stream opens 8:30 AM &nbsp;·&nbsp; Ceremony 9:00 AM
+              </div>
+            </div>
+          </div>
+          <a class="btn-stream" href="https://youtube.com/live/wOGAIl-XzlY?feature=share" target="_blank" rel="noopener">Watch on YouTube</a>
+        </div>
+        <p class="stream-note">The replay will be available after the ceremony ends.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-name">UC Riverside · Department of Mathematics</div>
+    <p>Dr. Chaoyang Gao &nbsp;·&nbsp; PhD Hooding Ceremony &nbsp;·&nbsp; June 6, 2026</p>
+    <div class="footer-links">
+      <a class="footer-link-btn" href="index.html">Ceremony</a>
+      <a class="footer-link-btn" href="graduation-directions.html">Directions</a>
+    </div>
+  </footer>
+
+</body>
+</html>
